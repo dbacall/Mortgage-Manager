@@ -2,11 +2,10 @@ import { type NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
+
 
   if (!session) {
     return {
@@ -17,6 +16,21 @@ export async function getServerSideProps(context) {
     }
   }
 
+  const response = await fetch(`http://localhost:3000/api/user/${session.user.id}`)
+
+  const user = await response.json()
+
+  if (!user.firstName) {
+    return {
+      redirect: {
+        destination: '/getting-started',
+        permanent: false,
+      },
+    }
+  }
+
+
+
   return {
     props: { session }
   }
@@ -25,7 +39,7 @@ export async function getServerSideProps(context) {
 const Home: NextPage = () => {
   const session = useSession()
 
-  console.log('session', session);
+  // console.log('session', session);
 
   return (
     <>
