@@ -38,9 +38,9 @@ export default async function personHandler(
 
     console.log('userr', user);
 
-    if (!user) return res.status(401)
+    if (!user) return res.status(404).end()
 
 
-    return res.status(200).json()
+    return res.status(200).end()
   }
 }

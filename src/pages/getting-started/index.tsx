@@ -8,7 +8,7 @@ import axios from "axios";
 const GettingStarted: NextPage = () => {
   const session = useSession()
   console.log(session);
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit } = useForm();
   // console.log('session', session);
   const onSubmit = data => mutate(data);
 
