@@ -52,7 +52,7 @@ const GettingStarted: NextPage = ({ user }) => {
         <Header />
         <main className="">
           <div className="text-center">
-            <ul className="steps steps-horizontal mt-12 w-96">
+            <ul className="mt-16 steps steps-horizontal w-96">
               {steps.map((step) => (
                 <li key={step.name} className={step.currentOrPast ? "step step-primary" : "step"}>{step.name}</li>
               ))}
@@ -60,13 +60,13 @@ const GettingStarted: NextPage = ({ user }) => {
             {!hasCreatedProfile && (
               <>
 
-                <h1 className="text-4xl mt-16 font-medium">
+                <h1 className="mt-16 text-4xl font-medium">
                   Profile Creation
                 </h1>
-                <form onSubmit={handleSubmit(onSubmit)} className="m-auto flex flex-col items-center w-80">
-                  <input type="text" placeholder="First Name" className="input input-bordered border-slate-200 w-full max-w-xs mt-9" {...register("firstName")} />
-                  <input type="text" placeholder="Last Name" className="input input-bordered border-slate-200 w-full max-w-xs mt-3"  {...register("lastName")} />
-                  <input disabled={false} type="submit" value="Submit" className="btn btn-primary mt-3 w-full" />
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
+                  <input type="text" placeholder="First Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-9" {...register("firstName")} />
+                  <input type="text" placeholder="Last Name" className="w-full max-w-xs mt-3 input input-bordered border-slate-200"  {...register("lastName")} />
+                  <input disabled={false} type="submit" value="Submit" className="w-full mt-3 btn btn-primary" />
                 </form>
               </>
             )}
