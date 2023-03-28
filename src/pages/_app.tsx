@@ -2,7 +2,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { QueryClient, QueryClientProvider } from 'react-query'
-import "~/styles/globals.css";
+import "../styles/globals.css";
 
 const queryClient = new QueryClient();
 
@@ -10,6 +10,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  console.log('pageProps', session);
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>

@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
@@ -22,6 +21,7 @@ export async function getServerSideProps(context) {
 
   if (!user.firstName) {
     return {
+      props: { user },
       redirect: {
         destination: '/getting-started',
         permanent: false,
@@ -37,9 +37,6 @@ export async function getServerSideProps(context) {
 }
 
 const Home: NextPage = () => {
-  const session = useSession()
-
-  // console.log('session', session);
 
   return (
     <>
@@ -53,9 +50,6 @@ const Home: NextPage = () => {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Home Page
           </h1>
-          <Link href="/api/auth/signout" legacyBehavior>
-            <a>Sign Out</a>
-          </Link>
         </div>
       </main>
     </>
