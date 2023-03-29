@@ -3,8 +3,13 @@ import Head from "next/head";
 import { CompanyCreator, ProfileCreator, SignedInLayout } from "../../components";
 import { type ReactElement, useEffect, useState } from "react";
 import type { NextPageWithLayout } from "../_app";
+import { type GetServerSideProps } from "next";
 
-const GettingStarted: NextPageWithLayout = ({ user }) => {
+type GettingStartedProps = {
+  user: User
+} & NextPageWithLayout
+
+const GettingStarted = ({ user }: GettingStartedProps) => {
   const [hasCreatedProfile, setCreatedProfile] = useState(false)
   const [hasCreatedCompany, setCreatedCompany] = useState(false)
 
@@ -58,7 +63,7 @@ const GettingStarted: NextPageWithLayout = ({ user }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
 
@@ -73,7 +78,7 @@ export async function getServerSideProps(context) {
 
   const response = await fetch(`http://localhost:3000/api/user/${session.user.id}`)
 
-  const user = await response.json()
+  const user = await response.json() as User
 
   if (user.companyMembershipId) {
     return {
@@ -85,7 +90,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { user },
+    props: { user } as { user: User },
   }
 }
 
@@ -93,6 +98,33 @@ GettingStarted.getLayout = function getLayout(page: ReactElement) {
   return (
     <SignedInLayout>{page}</SignedInLayout>
   )
+}
+
+
+interface User {
+  id: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  emailVerified?: any;
+  image: string;
+  companyId: string;
+  companyMembershipId: string;
+  company: Company;
+  companyMembership: CompanyMembership;
+}
+
+interface CompanyMembership {
+  id: string;
+  userId: string;
+  companyId: string;
+  type: string;
+}
+
+interface Company {
+  id: string;
+  name: string;
 }
 
 export default GettingStarted;

@@ -1,25 +1,32 @@
-import { useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { type FC } from "react";
+
+interface ProfileCreatorProps {
+  setCreatedProfile: (created: boolean) => void
+}
 
 interface ProfileData {
   firstName: string;
   lastName: string;
 }
 
-const ProfileCreator = ({ setCreatedProfile }) => {
+const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
   const { data: session } = useSession()
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<ProfileData>();
 
 
-  const onSubmit = (data: { name: string }) => {
+  const onSubmit: SubmitHandler<ProfileData> = (data: ProfileData) => {
     createProfile(data)
   };
 
-  const { mutate: createProfile, isLoading } = useMutation((data: ProfileData) => {
-    return axios.put(`http://localhost:3000/api/user/${session.user.id}`, data)
+  const { mutate: createProfile } = useMutation((data: ProfileData): any => {
+    if (session) {
+      return axios.put(`http://localhost:3000/api/user/${session.user.id}`, data)
+    }
   },
     {
       onSuccess: () => setCreatedProfile(true)

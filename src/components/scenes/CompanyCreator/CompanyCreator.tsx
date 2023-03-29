@@ -1,16 +1,25 @@
-import { useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { type FC } from "react";
 
-const CompanyCreator = ({ setCreatedCompany }) => {
-  const { register, handleSubmit } = useForm();
+interface CompanyCreatorProps {
+  setCreatedCompany: (created: boolean) => void
+}
+
+interface FormValues {
+  name: string;
+}
+
+const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
+  const { register, handleSubmit } = useForm<FormValues>();
 
 
-  const onSubmit = (data: { name: string }) => {
+  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
     createCompany(data)
   };
 
-  const { mutate: createCompany, isLoading } = useMutation((data: { name: string }) => {
+  const { mutate: createCompany, isLoading } = useMutation((data: FormValues) => {
     return axios.post(`http://localhost:3000/api/company`, data)
   }, {
     onSuccess: () => setCreatedCompany(true)

@@ -5,7 +5,7 @@ import { getSession } from 'next-auth/react';
 import { prisma } from '../../../server/db'
 import { MembershipType } from '@prisma/client';
 
-export interface PostRequest extends NextApiRequest {
+export interface Request extends NextApiRequest {
   body: {
     name: string;
   };
@@ -13,7 +13,7 @@ export interface PostRequest extends NextApiRequest {
 
 
 export default async function companyHandler(
-  req: PostRequest,
+  req: Request,
   res: NextApiResponse
 ) {
   const { body } = req
@@ -22,7 +22,6 @@ export default async function companyHandler(
     const { name } = body;
 
     const session = await getSession({ req })
-    console.log(session);
     const { id: userId } = session.user
 
     if (typeof name === 'string') {
@@ -50,14 +49,6 @@ export default async function companyHandler(
         },
       })
     }
-
-
-
-    console.log('name', name);
-
-
-    // if (!user) return res.status(404).end()
-
 
     return res.status(200).end()
   }

@@ -3,8 +3,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../server/db'
 
+export interface Request extends NextApiRequest {
+  body: {
+    firstName: string;
+    lastName: string;
+  };
+  query: {
+    id: string
+  }
+}
+
 export default async function personHandler(
-  req: NextApiRequest,
+  req: Request,
   res: NextApiResponse
 ) {
   const { query, body } = req
@@ -40,10 +50,7 @@ export default async function personHandler(
       },
     })
 
-    console.log('userr', user);
-
     if (!user) return res.status(404).end()
-
 
     return res.status(200).end()
   }
