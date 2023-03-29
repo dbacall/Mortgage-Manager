@@ -52,12 +52,17 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
       issuer: process.env.AUTH0_ISSUER,
       allowDangerousEmailAccountLinking: true,
+      authorization: {
+        params: {
+          prompt: "login",
+        },
+      },
     }),
   ],
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-  }
+  },
 };
 
 /**
