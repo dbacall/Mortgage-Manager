@@ -1,31 +1,16 @@
-import { type NextPage } from "next";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import axios from "axios";
-import { Header } from "../../components";
+import { CompanyCreator, ProfileCreator, SignedInLayout } from "../../components";
+import { type ReactElement, useEffect, useState } from "react";
+import type { NextPageWithLayout } from "../_app";
 
-interface ProfileData {
-  firstName: string;
-  lastName: string;
-}
+const GettingStarted: NextPageWithLayout = ({ user }) => {
+  const [hasCreatedProfile, setCreatedProfile] = useState(false)
+  const [hasCreatedCompany, setCreatedCompany] = useState(false)
 
-const GettingStarted: NextPage = ({ user }) => {
-  console.log('user', user);
-
-  const { data: session } = useSession()
-  const { register, handleSubmit } = useForm();
-  // console.log('session', session);
-  const onSubmit = (data: ProfileData) => {
-    mutate(data)
-  };
-
-  const { mutate, isLoading } = useMutation((data: ProfileData) => {
-    return axios.put(`http://localhost:3000/api/user/${session.user.id}`, data)
-  })
-
-  const hasCreatedProfile = !!user.firstName
+  useEffect(() => {
+    if (!!user.firstName) setCreatedProfile(true)
+  }, [user])
 
   const steps = [
     {
@@ -34,11 +19,11 @@ const GettingStarted: NextPage = ({ user }) => {
     },
     {
       name: 'Company',
-      currentOrPast: false
+      currentOrPast: hasCreatedProfile
     },
     {
       name: 'Members',
-      currentOrPast: false
+      currentOrPast: hasCreatedCompany
     },
   ]
 
@@ -48,33 +33,27 @@ const GettingStarted: NextPage = ({ user }) => {
         <title>Getting Started</title>
       </Head>
 
-      <div>
-        <Header />
-        <main className="">
-          <div className="text-center">
-            <ul className="mt-16 steps steps-horizontal w-96">
-              {steps.map((step) => (
-                <li key={step.name} className={step.currentOrPast ? "step step-primary" : "step"}>{step.name}</li>
-              ))}
-            </ul>
-            {!hasCreatedProfile && (
-              <>
 
-                <h1 className="mt-16 text-4xl font-medium">
-                  Profile Creation
-                </h1>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
-                  <input type="text" placeholder="First Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-9" {...register("firstName")} />
-                  <input type="text" placeholder="Last Name" className="w-full max-w-xs mt-3 input input-bordered border-slate-200"  {...register("lastName")} />
-                  <input disabled={false} type="submit" value="Submit" className="w-full mt-3 btn btn-primary" />
-                </form>
-              </>
-            )}
+      <main className="">
+        <div className="text-center">
+          <ul className="mt-16 steps steps-horizontal w-96">
+            {steps.map((step) => (
+              <li key={step.name} className={step.currentOrPast ? "step step-primary" : "step"}>{step.name}</li>
+            ))}
+          </ul>
+          {(!hasCreatedProfile) && <ProfileCreator setCreatedProfile={setCreatedProfile} />}
 
+          {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} />}
 
-          </div>
-        </main>
-      </div>
+          {hasCreatedCompany && (
+            <>
+              <h1 className="mt-16 text-4xl font-medium">
+                Add Members
+              </h1>
+            </>
+          )}
+        </div>
+      </main>
     </>
   );
 };
@@ -96,9 +75,24 @@ export async function getServerSideProps(context) {
 
   const user = await response.json()
 
+  if (user.companyMembershipId) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
   return {
     props: { user },
   }
+}
+
+GettingStarted.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <SignedInLayout>{page}</SignedInLayout>
+  )
 }
 
 export default GettingStarted;

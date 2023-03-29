@@ -14,10 +14,41 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model User {
+    id                  String             @id @default(cuid())
+    name                String?
+    firstName           String?
+    lastName            String?
+    email               String?            @unique
+    emailVerified       DateTime?
+    image               String?
+    accounts            Account[]
+    sessions            Session[]
+    companyId           String?
+    company             Company?           @relation(fields: [companyId], references: [id])
+    companyMembershipId String?
+    companyMembership   CompanyMembership?
+}
+
+model Company {
+    id                String              @id @default(cuid())
+    name              String
+    members           User[]
+    CompanyMembership CompanyMembership[]
+}
+
+enum MembershipType {
+    ADMIN
+    USER
+}
+
+model CompanyMembership {
+    id        String         @id @default(cuid())
+    userId    String         @unique
+    user      User           @relation(fields: [userId], references: [id])
+    companyId String
+    company   Company        @relation(fields: [companyId], references: [id])
+    type      MembershipType
 }
 
 // Necessary for Next auth
@@ -45,18 +76,6 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    firstName     String?
-    lastName      String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
 }
 
 model VerificationToken {

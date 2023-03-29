@@ -14,7 +14,11 @@ export default async function personHandler(
     const user = await prisma.user.findUnique({
       where: {
         id,
-      }
+      },
+      include: {
+        company: true,
+        companyMembership: true
+      },
     })
 
     if (!user) return res.status(401)
