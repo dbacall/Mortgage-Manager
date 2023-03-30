@@ -1,11 +1,19 @@
 import { BiLogOut } from 'react-icons/bi'
 import Link from "next/link";
+import Image from 'next/image';
 
 const Header = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Placeholder Logo</a>
+        <a className="btn btn-ghost normal-case text-xl">
+          <Image
+            alt=""
+            src="https://iazjjkurflujtydrmeqj.supabase.co/storage/v1/object/public/mortgage-manager/full-logo.png?t=2023-03-30T23%3A00%3A15.762Z"
+            height={50}
+            width={140}
+          />
+        </a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">

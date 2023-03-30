@@ -18,5 +18,16 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'iazjjkurflujtydrmeqj.supabase.co',
+        port: '',
+        // pathname: '/my-bucket/**',
+      },
+    ],
+  },
 };
 export default config;

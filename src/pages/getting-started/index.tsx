@@ -10,7 +10,7 @@ type GettingStartedProps = {
 } & NextPageWithLayout
 
 const GettingStarted = ({ user }: GettingStartedProps) => {
-  const [hasCreatedProfile, setCreatedProfile] = useState(false)
+  const [hasCreatedProfile, setCreatedProfile] = useState(!!user.firstName)
   const [hasCreatedCompany, setCreatedCompany] = useState(false)
 
   useEffect(() => {
