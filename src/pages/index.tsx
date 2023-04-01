@@ -29,7 +29,7 @@ const Home: NextPageWithLayout = ({ user, clients }) => {
       </Head>
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col justify-center">
+        <div className="drawer-content flex flex-col">
           <main className="px-10 py-16 ">
             <h1 className="text-4xl">
               {company.name}
