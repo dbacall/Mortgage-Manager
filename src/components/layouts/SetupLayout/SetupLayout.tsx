@@ -5,7 +5,9 @@ const SignedInLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div>
       <Header />
-      {children}
+      <div className="pt-20">
+        {children}
+      </div>
     </div>
   );
 }

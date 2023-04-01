@@ -78,8 +78,8 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
         <input type="text" placeholder="Company Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-14" {...register("name")} />
-        <input type="file" className="file-input file-input-primary w-full max-w-xs mt-9" {...register("clientsFile")} />
-        <button type="submit" className="w-full mt-9 btn btn-primary">Submit</button>
+        <input type="file" className="file-input file-input-primary w-full max-w-xs mt-6" {...register("clientsFile")} />
+        <button type="submit" className="w-full mt-6 btn btn-primary">Submit</button>
       </form>
     </>
   );

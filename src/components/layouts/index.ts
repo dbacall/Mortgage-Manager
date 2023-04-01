@@ -1,3 +1,4 @@
-import SignedInLayout from "./SignedInLayout";
+import MainLayout from "./MainLayout";
+import SetupLayout from "./SetupLayout";
 
-export { SignedInLayout }
+export { MainLayout, SetupLayout }

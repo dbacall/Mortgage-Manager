@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { CompanyCreator, ProfileCreator, SignedInLayout } from "../../components";
+import { CompanyCreator, ProfileCreator, SetupLayout } from "../../components";
 import { type ReactElement, useEffect, useState } from "react";
 import type { NextPageWithLayout } from "../_app";
 import { type GetServerSideProps } from "next";
@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 GettingStarted.getLayout = function getLayout(page: ReactElement) {
   return (
-    <SignedInLayout>{page}</SignedInLayout>
+    <SetupLayout>{page}</SetupLayout>
   )
 }
 

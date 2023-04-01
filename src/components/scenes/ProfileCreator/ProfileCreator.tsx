@@ -39,8 +39,8 @@ const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
         <input type="text" placeholder="First Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-14" {...register("firstName")} />
-        <input type="text" placeholder="Last Name" className="w-full max-w-xs mt-9 input input-bordered border-slate-200"  {...register("lastName")} />
-        <button type="submit" className="w-full mt-9 btn btn-primary">Submit</button>
+        <input type="text" placeholder="Last Name" className="w-full max-w-xs mt-6 input input-bordered border-slate-200"  {...register("lastName")} />
+        <button type="submit" className="w-full mt-6 btn btn-primary">Submit</button>
       </form>
     </>
   );
