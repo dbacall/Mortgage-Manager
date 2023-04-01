@@ -3,7 +3,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth/next';
 import { prisma } from '../../../server/db'
-import { MembershipType, type MortgageWritten } from '@prisma/client';
+import { MembershipType } from '@prisma/client';
 import { authOptions } from 'src/server/auth';
 
 export interface Request extends NextApiRequest {

@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react"
 import { useEffect } from "react"
-import HashLoader from "react-spinners/HashLoader"
+import PropagateLoader from "react-spinners/PropagateLoader"
 
 export default function SignOut({ }) {
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function SignOut({ }) {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <HashLoader
+      <PropagateLoader
         color="#0891b2"
       />
     </div>

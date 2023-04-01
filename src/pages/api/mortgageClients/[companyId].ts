@@ -19,6 +19,9 @@ export default async function personHandler(
     const clients = await prisma.mortgageClient.findMany({
       where: {
         companyId,
+      },
+      orderBy: {
+        renewalDate: 'asc'
       }
     })
 

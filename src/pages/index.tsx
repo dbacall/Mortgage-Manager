@@ -51,19 +51,19 @@ const Home: NextPageWithLayout = ({ user, clients }) => {
         <table className="table w-full mt-5">
           <thead >
             <tr>
-              <th className="bg-slate-200">Name</th>
-              <th className="bg-slate-200">Phone</th>
-              <th className="bg-slate-200">Email</th>
-              <th className="bg-slate-200">Renewal Date</th>
+              <th className="bg-slate-100">Name</th>
+              <th className="bg-slate-100">Phone</th>
+              <th className="bg-slate-100">Email</th>
+              <th className="bg-slate-100">Renewal Date</th>
             </tr>
           </thead>
           <tbody>
             {filteredClients.map((client, id) => (
               <tr key={id}>
-                <td className="border-slate-200">{client.firstName} {client.lastName}</td>
-                <td className="border-slate-200">0{client.phone}</td>
-                <td className="border-slate-200">{client.email}</td>
-                <td className="border-slate-200">{new Date(client.renewalDate).toLocaleDateString('en-GB')}</td>
+                <td className="border-slate-100">{client.firstName} {client.lastName}</td>
+                <td className="border-slate-100">0{client.phone}</td>
+                <td className="border-slate-100">{client.email}</td>
+                <td className="border-slate-100">{new Date(client.renewalDate).toLocaleDateString('en-GB')}</td>
               </tr>
             ))}
 
