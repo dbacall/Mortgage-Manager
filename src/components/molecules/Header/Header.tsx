@@ -9,7 +9,7 @@ const Header = () => {
         <a className="btn btn-ghost normal-case text-xl">
           <Image
             alt=""
-            src="https://iazjjkurflujtydrmeqj.supabase.co/storage/v1/object/public/mortgage-manager/full-logo.png?t=2023-03-30T23%3A00%3A15.762Z"
+            src="https://iazjjkurflujtydrmeqj.supabase.co/storage/v1/object/public/mortgage-manager/full-logo.png?t=2023-03-30T23%3A29%3A41.650Z"
             height={50}
             width={140}
           />

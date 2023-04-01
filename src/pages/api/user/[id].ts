@@ -1,5 +1,3 @@
-
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../server/db'
 
@@ -32,7 +30,6 @@ export default async function personHandler(
     })
 
     if (!user) return res.status(401)
-
 
     res.status(200).json(user)
   }

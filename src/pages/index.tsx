@@ -1,12 +1,23 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import type { ReactElement } from "react";
+import { type ReactElement, useState, useEffect } from "react";
 import { SignedInLayout } from "src/components";
 import type { NextPageWithLayout } from './_app';
 
-const Home: NextPageWithLayout = ({ user }) => {
-  console.log('home user', user);
+const Home: NextPageWithLayout = ({ user, clients }) => {
+  const [filteredClients, setFilteredClients] = useState(clients)
+  const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    const searchedClients = clients.filter((client) => {
+      return `${client.firstName} ${client.lastName}`.includes(searchTerm)
+    })
+
+    setFilteredClients(searchedClients)
+  }, [searchTerm])
+
   const { company } = user
+
   return (
     <>
       <Head>
@@ -18,6 +29,44 @@ const Home: NextPageWithLayout = ({ user }) => {
         <h1 className="text-4xl">
           {company.name}
         </h1>
+        <div className="mt-6 flex justify-between items-center w-full">
+          <h2 className="text-2xl">
+            Client Renewals
+          </h2>
+          <div>
+            <input
+              type="text"
+              placeholder="Search…"
+              className="input input-bordered"
+              onChange={(e) => {
+                console.log(e);
+                setSearchTerm(e.target.value)
+
+              }}
+            />
+          </div>
+        </div>
+        <table className="table w-full mt-5">
+          <thead >
+            <tr>
+              <th className="bg-slate-200">Name</th>
+              <th className="bg-slate-200">Phone</th>
+              <th className="bg-slate-200">Email</th>
+              <th className="bg-slate-200">Renewal Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredClients.map((client) => (
+              <tr key={client.email}>
+                <td>{client.firstName} {client.lastName}</td>
+                <td>0{client.phone}</td>
+                <td>{client.email}</td>
+                <td>{new Date(client.renewalDate).toLocaleDateString('en-GB')}</td>
+              </tr>
+            ))}
+
+          </tbody>
+        </table>
       </main>
     </>
   );
@@ -49,8 +98,15 @@ export async function getServerSideProps(context) {
     }
   }
 
+
+  const clientsRes = await fetch(`http://localhost:3000/api/mortgageClients/${user.companyId}`)
+
+  const clients = await clientsRes.json()
+
+  console.log('clients server side', clients);
+
   return {
-    props: { user }
+    props: { user, clients }
   }
 }
 
