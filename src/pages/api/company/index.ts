@@ -21,17 +21,13 @@ export default async function companyHandler(
 
 
   const { body } = req
-  console.log('HEREEEEEEE', body);
 
   if (req.method === 'POST') {
     const { name, clients } = body;
 
     const session = await getServerSession(req, res, authOptions)
 
-    console.log('session', session);
     const { id: userId } = session.user
-
-    console.log('clientsFile', body);
 
     if (typeof name === 'string') {
       const company = await prisma.company.create({
