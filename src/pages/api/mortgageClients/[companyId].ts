@@ -25,8 +25,6 @@ export default async function personHandler(
       }
     })
 
-    console.log('in route', clients);
-
     if (!clients) return res.status(401)
 
     res.status(200).json(clients)

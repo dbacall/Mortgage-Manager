@@ -19,8 +19,6 @@ export default async function personHandler(
   const { id } = query
 
   if (req.method === 'GET') {
-    console.log('before user call', id);
-
     const user = await prisma.user.findUnique({
       where: {
         id,
@@ -30,8 +28,6 @@ export default async function personHandler(
         companyMembership: true
       },
     })
-
-    console.log('user', user);
 
     if (!user) return res.status(401)
 

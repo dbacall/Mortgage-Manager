@@ -18,8 +18,6 @@ const Home: NextPageWithLayout = ({ user, clients }) => {
 
   const { company } = user
 
-  console.log('filteredClients', filteredClients);
-
   return (
     <>
       <Head>
@@ -41,9 +39,7 @@ const Home: NextPageWithLayout = ({ user, clients }) => {
               placeholder="Search…"
               className="input input-bordered border-slate-300"
               onChange={(e) => {
-                console.log(e);
                 setSearchTerm(e.target.value)
-
               }}
             />
           </div>
@@ -89,9 +85,7 @@ export async function getServerSideProps(context) {
 
   const response = await fetch(`http://localhost:3000/api/user/${session.user.id}`)
 
-  console.log('hereeee 111');
   const user = await response.json()
-  console.log('hereeee 222');
 
   if (!user.companyMembershipId) {
     return {
@@ -106,8 +100,6 @@ export async function getServerSideProps(context) {
   const clientsRes = await fetch(`http://localhost:3000/api/mortgageClients/${user.companyId}`)
 
   const clients = await clientsRes.json()
-
-  console.log('clients server side', clients);
 
   return {
     props: { user, clients }
