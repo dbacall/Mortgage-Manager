@@ -16,12 +16,15 @@ export default async function personHandler(
   const { companyId } = req.query
 
   if (req.method === 'GET') {
-    const clients = await prisma.mortgageClient.findMany({
+    const clients = await prisma.mortgage.findMany({
       where: {
         companyId,
       },
       orderBy: {
         renewalDate: 'asc'
+      },
+      include: {
+        client: true
       }
     })
 

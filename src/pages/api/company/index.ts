@@ -23,7 +23,7 @@ export default async function companyHandler(
   const { body } = req
 
   if (req.method === 'POST') {
-    const { name, clients } = body;
+    const { name, clients, mortgages } = body;
 
     const session = await getServerSession(req, res, authOptions)
 
@@ -40,7 +40,7 @@ export default async function companyHandler(
         data: {
           userId,
           companyId: company.id,
-          type: MembershipType.ADMIN
+          type: MembershipType.ADMIN,
         }
       })
 
@@ -61,11 +61,33 @@ export default async function companyHandler(
         }
       })
 
+      const mortgagesWithCompanyId = mortgages.map((mortgage) => {
+        return {
+          ...mortgage,
+          companyId: company.id
+        }
+      })
 
-      await prisma.mortgageClient.createMany({
+
+      await prisma.client.createMany({
         data: clientsWithCompanyId,
         skipDuplicates: true
       })
+
+      for (const mortgage of mortgagesWithCompanyId) {
+        const mortgageToAdd = {
+          ...mortgage,
+          email: undefined
+        }
+        await prisma.mortgage.create({
+          data: {
+            ...mortgageToAdd,
+            client: {
+              connect: { email: mortgage.email }
+            }
+          },
+        })
+      }
 
 
     }

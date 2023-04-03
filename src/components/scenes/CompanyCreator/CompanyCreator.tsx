@@ -37,27 +37,42 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
 
       rows.shift();
 
-      const clients = rows.filter(row => row.length > 0).map(row => {
-        const obj = {};
+      const clientKeys = ['firstName', 'lastName', 'email', 'phone']
+
+      const mortgageKeys = ['email', 'interestType', 'purchaseType', 'firstLineOfAddress', 'city', 'postcode', 'purchaseDate', 'renewalDate', 'initialMortgageAmount']
+
+      const clients = []
+      const mortgages = [];
+
+      rows.filter(row => row.length > 0).forEach(row => {
+        const client = {};
+        const mortgage = {};
+
+        console.log(headers);
 
         headers.forEach((header, i) => {
-          if (header === 'purchaseDate' || header === 'renewalDate') {
-            var date1 = row[i].split('/')
-            var newDate = date1[1] + '/' + date1[0] + '/' + date1[2];
-            obj[header] = new Date(newDate)
-          } else if (header === 'initialMortgageAmount') {
-            obj[header] = parseInt(row[i])
-          }
-          else {
-            obj[header] = row[i];
+
+          if (clientKeys.includes(header)) client[header] = row[i]
+          if (mortgageKeys.includes(header)) {
+            if (header === 'purchaseDate' || header === 'renewalDate') {
+              var date1 = row[i].split('/')
+              var newDate = date1[1] + '/' + date1[0] + '/' + date1[2];
+              mortgage[header] = new Date(newDate)
+            } else if (header === 'initialMortgageAmount') {
+              mortgage[header] = parseInt(row[i])
+            } else {
+              mortgage[header] = row[i]
+            }
           }
         });
-        return obj;
+        clients.push(client)
+        mortgages.push(mortgage)
       });
 
       const dataToSend = {
         name: companyName,
-        clients
+        clients,
+        mortgages
       }
 
       createCompany(dataToSend);

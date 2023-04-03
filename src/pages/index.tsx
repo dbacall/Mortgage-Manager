@@ -4,16 +4,16 @@ import { type ReactElement, useState, useEffect } from "react";
 import { MainLayout } from "src/components";
 import type { NextPageWithLayout } from './_app';
 
-const Home: NextPageWithLayout = ({ user, clients }) => {
-  const [filteredClients, setFilteredClients] = useState(clients)
+const Home: NextPageWithLayout = ({ user, mortgages }) => {
+  const [filteredMortgages, setFilteredMorgages] = useState(mortgages)
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    const searchedClients = clients.filter((client) => {
-      return `${client.firstName} ${client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
+    const searchedMortgages = mortgages.filter((mortgage) => {
+      return `${mortgage.client.firstName} ${mortgage.client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
     })
 
-    setFilteredClients(searchedClients)
+    setFilteredMorgages(searchedMortgages)
   }, [searchTerm])
 
   const { company } = user
@@ -54,12 +54,12 @@ const Home: NextPageWithLayout = ({ user, clients }) => {
             </tr>
           </thead>
           <tbody>
-            {filteredClients.map((client, id) => (
+            {filteredMortgages.map((mortgage, id) => (
               <tr key={id}>
-                <td className="border-slate-100">{client.firstName} {client.lastName}</td>
-                <td className="border-slate-100">0{client.phone}</td>
-                <td className="border-slate-100">{client.email}</td>
-                <td className="border-slate-100">{new Date(client.renewalDate).toLocaleDateString('en-GB')}</td>
+                <td className="border-slate-100">{mortgage.client.firstName} {mortgage.client.lastName}</td>
+                <td className="border-slate-100">0{mortgage.client.phone}</td>
+                <td className="border-slate-100">{mortgage.client.email}</td>
+                <td className="border-slate-100">{new Date(mortgage.renewalDate).toLocaleDateString('en-GB')}</td>
               </tr>
             ))}
 
@@ -97,12 +97,12 @@ export async function getServerSideProps(context) {
   }
 
 
-  const clientsRes = await fetch(`http://localhost:3000/api/mortgageClients/${user.companyId}`)
+  const mortgagesRes = await fetch(`http://localhost:3000/api/mortgages/${user.companyId}`)
 
-  const clients = await clientsRes.json()
+  const mortgages = await mortgagesRes.json()
 
   return {
-    props: { user, clients }
+    props: { user, mortgages }
   }
 }
 

@@ -14,12 +14,18 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model MortgageClient {
+model Client {
+    id        String     @id @default(cuid())
+    firstName String
+    lastName  String
+    email     String?    @unique
+    phone     String?
+    companyId String?
+    mortgages Mortgage[]
+}
+
+model Mortgage {
     id                    String        @id @default(cuid())
-    firstName             String
-    lastName              String
-    email                 String?
-    phone                 String?
     interestType          InterestType?
     purchaseType          PurchaseType?
     firstLineOfAddress    String?
@@ -29,6 +35,8 @@ model MortgageClient {
     renewalDate           DateTime?
     initialMortgageAmount Int?
     companyId             String?
+    clientId              String
+    client                Client        @relation(fields: [clientId], references: [id])
 }
 
 model User {

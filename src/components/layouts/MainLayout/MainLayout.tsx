@@ -8,9 +8,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   const [audio, setAudio] = useState(null)
 
   useEffect(() => {
-
-    setAudio(new Audio('/help.mp3')) // only call client
-
+    setAudio(new Audio('/help.mp3'))
   }, [])
 
   return (
