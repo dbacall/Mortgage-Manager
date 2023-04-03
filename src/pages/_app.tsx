@@ -13,15 +13,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
-  const getLayout = Component.getLayout || ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) => page)
 
-  return getLayout((
+  return getLayout(
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>
     </QueryClientProvider>
-  ));
+  );
 };
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

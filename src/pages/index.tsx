@@ -1,7 +1,7 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { type ReactElement, useState, useEffect } from "react";
-import { MainLayout } from "src/components";
+import { useState, useEffect } from "react";
+import { getLayout } from "src/components/layouts/MainLayout/MainLayout";
 import type { NextPageWithLayout } from './_app';
 
 const Home: NextPageWithLayout = ({ user, mortgages }) => {
@@ -106,10 +106,6 @@ export async function getServerSideProps(context) {
   }
 }
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <MainLayout>{page}</MainLayout>
-  )
-}
+Home.getLayout = getLayout
 
 export default Home;
