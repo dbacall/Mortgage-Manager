@@ -44,7 +44,7 @@ const Home: NextPageWithLayout = ({ user, mortgages }) => {
             />
           </div>
         </div>
-        <table className="table w-full mt-5">
+        <table className="table w-full mt-5 shadow-xl rounded-lg">
           <thead >
             <tr>
               <th className="bg-slate-100">Name</th>

@@ -49,7 +49,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
           <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
 
         </div>
-        <div className="drawer-side pt-16">
+        <div className="drawer-side pt-16 shadow-lg">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 bg-slate-100 text-base-content w-64">
             {options.map((option, id) => (
