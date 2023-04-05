@@ -52,7 +52,7 @@ const GettingStarted = ({ user }: GettingStartedProps) => {
 
           {hasCreatedCompany && (
             <>
-              <h1 className="mt-16 text-4xl font-medium">
+              <h1 className="mt-16 text-4xl font-medium text-content-secondary">
                 Add Members
               </h1>
             </>

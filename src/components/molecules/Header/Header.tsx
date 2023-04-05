@@ -16,7 +16,7 @@ const Header = () => {
         </a>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-content-primary">
           <li>
             <Link href="/api/auth/signout" legacyBehavior>
               <a>

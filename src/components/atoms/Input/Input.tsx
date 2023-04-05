@@ -13,7 +13,7 @@ export const Input: FC<InputProps> = ({ className = "", error, name, ...props })
   return (
     <>
       <input
-        className={`w-full max-w-xs input input-bordered border-slate-200 ${className}`}
+        className={`w-full max-w-xs input input-bordered border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
         {...props}
         {...methods.register(name)}
       />

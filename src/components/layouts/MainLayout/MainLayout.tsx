@@ -55,7 +55,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
             {options.map((option, id) => (
               <li
                 key={id}
-                className={option.isSelected ? "text-primary-focus" : "text-slate-400"}
+                className={option.isSelected ? "text-primary-focus" : "text-content-tertiary"}
               >
                 <a
                   onClick={() => {

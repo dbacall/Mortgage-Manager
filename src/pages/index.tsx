@@ -26,10 +26,10 @@ const Home: NextPageWithLayout = ({ user, mortgages }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="px-10 py-16">
-        <h1 className="text-4xl">
+        <h1 className="text-4xl text-content-tertiary">
           {company.name}
         </h1>
-        <div className="mt-6 flex justify-between items-center w-full overflow-none ">
+        <div className="mt-6 flex justify-between items-center w-full overflow-none text-content-primary">
           <h2 className="text-2xl">
             Client Renewals
           </h2>
@@ -47,19 +47,19 @@ const Home: NextPageWithLayout = ({ user, mortgages }) => {
         <table className="table w-full mt-5 shadow-xl rounded-lg">
           <thead >
             <tr>
-              <th className="bg-slate-100">Name</th>
-              <th className="bg-slate-100">Phone</th>
-              <th className="bg-slate-100">Email</th>
-              <th className="bg-slate-100">Renewal Date</th>
+              <th className="bg-slate-100 text-content-secondary">Name</th>
+              <th className="bg-slate-100 text-content-secondary">Phone</th>
+              <th className="bg-slate-100 text-content-secondary">Email</th>
+              <th className="bg-slate-100 text-content-secondary">Renewal Date</th>
             </tr>
           </thead>
           <tbody>
             {filteredMortgages.map((mortgage, id) => (
               <tr key={id}>
-                <td className="border-slate-100">{mortgage.client.firstName} {mortgage.client.lastName}</td>
-                <td className="border-slate-100">0{mortgage.client.phone}</td>
-                <td className="border-slate-100">{mortgage.client.email}</td>
-                <td className="border-slate-100">{new Date(mortgage.renewalDate).toLocaleDateString('en-GB')}</td>
+                <td className="border-slate-100 text-content-primary">{mortgage.client.firstName} {mortgage.client.lastName}</td>
+                <td className="border-slate-100 text-content-primary">0{mortgage.client.phone}</td>
+                <td className="border-slate-100 text-content-primary">{mortgage.client.email}</td>
+                <td className="border-slate-100 text-content-primary">{new Date(mortgage.renewalDate).toLocaleDateString('en-GB')}</td>
               </tr>
             ))}
 
