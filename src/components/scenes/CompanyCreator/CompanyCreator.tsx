@@ -1,7 +1,7 @@
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import axios from "axios";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import * as XLSX from 'xlsx';
 import camelcase from "camelcase";
 
@@ -15,6 +15,8 @@ interface FormValues {
 }
 
 const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
+  const [downloadedFile, setDownloadedFile] = useState(false)
+
   const { register, handleSubmit } = useForm<FormValues>();
 
 
@@ -91,11 +93,20 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
       <h1 className="mt-16 text-4xl font-medium">
         Company Creation
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
-        <input type="text" placeholder="Company Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-14" {...register("name")} />
-        <input type="file" className="file-input file-input-primary w-full max-w-xs mt-6" {...register("clientsFile")} />
-        <button type="submit" className="w-full mt-6 btn btn-primary">Submit</button>
-      </form>
+      <div className="flex flex-col items-center m-auto w-80">
+        {!downloadedFile ? (
+          <>
+            <p className="mt-14">Click <a className="btn btn-link px-0" href="/feemo-clients-template.xlsx" download>here</a> to download excel template.</p>
+            <button onClick={() => setDownloadedFile(true)} className="w-full mt-14 btn btn-primary">Continue</button>
+          </>
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)} >
+            <input type="text" placeholder="Company Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-14" {...register("name")} />
+            <input type="file" className="file-input file-input-primary w-full max-w-xs mt-6" {...register("clientsFile")} />
+            <button type="submit" className="w-full mt-6 btn btn-primary">Submit</button>
+          </form>
+        )}
+      </div>
     </>
   );
 }
