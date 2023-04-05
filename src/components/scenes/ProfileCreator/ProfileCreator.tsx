@@ -1,4 +1,4 @@
-import { type SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm, FormProvider } from "react-hook-form";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -17,9 +17,11 @@ type ProfileData = z.infer<typeof profileSchema>
 const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
   const { data: session } = useSession()
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ProfileData>({
+  const methods = useForm<ProfileData>({
     resolver: zodResolver(profileSchema),
   });
+
+  const { handleSubmit, formState: { errors } } = methods
 
   const onSubmit: SubmitHandler<ProfileData> = (data: ProfileData) => {
     createProfile(data)
@@ -39,11 +41,13 @@ const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
       <h1 className="mt-16 text-4xl font-medium">
         Profile Creation
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
-        <Input type="text" placeholder="First Name" className="mt-14" error={errors.firstName?.message} register={register} name="firstName" />
-        <Input type="text" placeholder="Last Name" className="mt-6" error={errors.lastName?.message} register={register} name="lastName" />
-        <Button type="submit" className="mt-6" isLoading={isLoading}>Submit</Button>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
+          <Input type="text" placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
+          <Input type="text" placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" />
+          <Button type="submit" className="mt-6" isLoading={isLoading}>Submit</Button>
+        </form>
+      </FormProvider>
     </>
   );
 }

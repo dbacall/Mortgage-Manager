@@ -1,26 +1,33 @@
-import { type SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm, FormProvider } from "react-hook-form";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useState, type FC } from "react";
 import * as XLSX from 'xlsx';
 import camelcase from "camelcase";
+import { companySchema } from "./CompanyCreator.validation";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, FileUpload, Input } from "src/components/atoms";
 
 interface CompanyCreatorProps {
   setCreatedCompany: (created: boolean) => void
 }
 
-interface FormValues {
-  name: string;
-  clientsFile: File;
-}
+type CompanyData = z.infer<typeof companySchema>
 
 const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
   const [downloadedFile, setDownloadedFile] = useState(false)
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  const methods = useForm<CompanyData>(
+    {
+      resolver: zodResolver(companySchema),
+    }
+  );
 
+  const { handleSubmit, formState: { errors } } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+  console.log(errors);
+
+  const onSubmit: SubmitHandler<CompanyData> = async (data: CompanyData) => {
     const companyName = data.name
     const clientsFile = data.clientsFile[0]
 
@@ -82,7 +89,7 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
 
   };
 
-  const { mutate: createCompany, isLoading } = useMutation((data: FormValues) => {
+  const { mutate: createCompany, isLoading } = useMutation((data: CompanyData) => {
     return axios.post(`http://localhost:3000/api/company`, data)
   }, {
     onSuccess: () => setCreatedCompany(true)
@@ -100,11 +107,13 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
             <button onClick={() => setDownloadedFile(true)} className="w-full mt-14 btn btn-primary">Continue</button>
           </>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} >
-            <input type="text" placeholder="Company Name" className="w-full max-w-xs input input-bordered border-slate-200 mt-14" {...register("name")} />
-            <input type="file" className="file-input file-input-primary w-full max-w-xs mt-6" {...register("clientsFile")} />
-            <button type="submit" className="w-full mt-6 btn btn-primary">Submit</button>
-          </form>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} >
+              <Input type="text" placeholder="Company Name" className="mt-14" error={errors.name?.message} name="name" />
+              <FileUpload className="mt-6" name="clientsFile" error={errors.clientsFile?.message} />
+              <Button type="submit" className="mt-6" isLoading={isLoading}>Submit</Button>
+            </form>
+          </FormProvider>
         )}
       </div>
     </>

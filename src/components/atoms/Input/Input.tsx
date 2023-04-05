@@ -1,16 +1,22 @@
 import { type FC } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   error?: string;
   name: string;
-  register: any;
 }
 
-export const Input: FC<InputProps> = ({ className = "", error, name, register, ...props }) => {
+export const Input: FC<InputProps> = ({ className = "", error, name, ...props }) => {
+  const methods = useFormContext()
+
   return (
     <>
-      <input className={`w-full max-w-xs input input-bordered border-slate-200 ${className}`} {...props} {...register(name)} />
+      <input
+        className={`w-full max-w-xs input input-bordered border-slate-200 ${className}`}
+        {...props}
+        {...methods.register(name)}
+      />
       {error && <p className="text-red-500">{error}</p>}
     </>
   );
