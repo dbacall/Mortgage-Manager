@@ -83,7 +83,12 @@ export default async function companyHandler(
           data: {
             ...mortgageToAdd,
             client: {
-              connect: { email: mortgage.email }
+              connect: {
+                email_companyId: {
+                  email: mortgage.email,
+                  companyId: company.id
+                }
+              }
             }
           },
         })

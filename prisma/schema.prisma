@@ -18,10 +18,12 @@ model Client {
     id        String     @id @default(cuid())
     firstName String
     lastName  String
-    email     String?    @unique
+    email     String?
     phone     String?
     companyId String?
     mortgages Mortgage[]
+
+    @@unique([email, companyId])
 }
 
 model Mortgage {
