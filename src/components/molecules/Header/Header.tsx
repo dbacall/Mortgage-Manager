@@ -1,4 +1,4 @@
-import { BiLogOut } from 'react-icons/bi'
+import { BiLogOut, BiCog } from 'react-icons/bi'
 import Link from "next/link";
 import Image from 'next/image';
 
@@ -18,9 +18,18 @@ const Header = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 text-content-primary">
           <li>
+            <Link href="/settings" legacyBehavior>
+              <a className="gap-2">
+                <BiCog size={20} />
+                Settings
+              </a>
+            </Link>
+          </li>
+          <li>
             <Link href="/api/auth/signout" legacyBehavior>
-              <a>
-                <BiLogOut size={20} /> Log out
+              <a className="gap-2">
+                <BiLogOut size={20} />
+                Log out
               </a>
             </Link>
           </li>

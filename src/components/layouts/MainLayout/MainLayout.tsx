@@ -1,8 +1,8 @@
 import { type FC, type PropsWithChildren, useState, useEffect, type ReactElement } from "react";
 import { Header } from "src/components";
-import { BiRefresh } from 'react-icons/bi';
+import { BiRefresh, BiCalculator } from 'react-icons/bi';
 import { IoHelpSharp } from 'react-icons/io5';
-import { BsPersonAdd } from 'react-icons/bs';
+import { BsPersonAdd, BsHouseAdd } from 'react-icons/bs';
 import { useRouter } from "next/router";
 
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
@@ -22,15 +22,21 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
       isSelected: router.pathname === '/'
     },
     {
+      name: 'Mortgage Calculator',
+      icon: <BiCalculator size={20} />,
+      isSelected: router.pathname === '/afafsdd'
+    },
+    {
       name: 'Add Client',
       icon: <BsPersonAdd size={20} />,
       href: '/client/add',
       isSelected: router.pathname === '/client/add'
     },
     {
-      name: 'Mortgage Calculator',
-      icon: <BiRefresh size={20} />,
-      isSelected: router.pathname === '/afafsdd'
+      name: 'Add Mortgage',
+      icon: <BsHouseAdd size={20} />,
+      href: '/mortgage/add',
+      isSelected: router.pathname === '/mortgage/add'
     },
     {
       name: 'Help',
