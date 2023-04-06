@@ -1,1 +1,1 @@
-export { default } from './ProfileCreator'
+export * from './ProfileCreator'

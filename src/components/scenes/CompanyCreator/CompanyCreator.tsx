@@ -14,7 +14,7 @@ interface CompanyCreatorProps {
 
 type CompanyData = z.infer<typeof companySchema>
 
-const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
+export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
   const [downloadedFile, setDownloadedFile] = useState(false)
 
   const methods = useForm<CompanyData>(
@@ -97,7 +97,7 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
 
   return (
     <>
-      <h1 className="mt-16 text-4xl font-medium text-content-secondary">
+      <h1 className="text-4xl font-medium text-content-secondary">
         Company Creation
       </h1>
       <div className="flex flex-col items-center m-auto w-80">
@@ -119,5 +119,3 @@ const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
     </>
   );
 }
-
-export default CompanyCreator;

@@ -1,25 +1,47 @@
 import Head from "next/head";
 import type { NextPageWithLayout } from "../_app";
 import { getLayout } from "src/components/layouts/MainLayout/MainLayout";
+import { AddClient } from "src/components";
+import axios from "axios";
+import type { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import type { User } from "src/types/interfaces";
 
-const AddClient: NextPageWithLayout = () => {
+type AddClientProps = {
+  user: User
+} & NextPageWithLayout
+
+const AddClientPage = ({ user }: AddClientProps) => {
   return (
     <>
       <Head>
         <title>Add Client</title>
       </Head>
 
-
-      <main className="">
-        <div className="text-center">
-          <h1>Add Client</h1>
-        </div>
-      </main>
+      <AddClient companyId={user.companyId} />
     </>
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
 
-AddClient.getLayout = getLayout;
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    }
+  }
 
-export default AddClient;
+  const { data: user }: { data: User } = await axios.get(`http://localhost:3000/api/user/${session.user.id}`)
+
+  return {
+    props: { user } as { user: User },
+  }
+}
+
+AddClientPage.getLayout = getLayout;
+
+export default AddClientPage;

@@ -14,7 +14,7 @@ interface ProfileCreatorProps {
 
 type ProfileData = z.infer<typeof profileSchema>
 
-const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
+export const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
   const { data: session } = useSession()
 
   const methods = useForm<ProfileData>({
@@ -38,7 +38,7 @@ const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
 
   return (
     <>
-      <h1 className="mt-16 text-4xl text-content-secondary font-medium">
+      <h1 className="text-4xl text-content-secondary font-medium">
         Profile Creation
       </h1>
       <FormProvider {...methods}>
@@ -51,5 +51,3 @@ const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
     </>
   );
 }
-
-export default ProfileCreator;

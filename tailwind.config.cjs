@@ -8,7 +8,11 @@ const config = {
           primary: '#030712',
           secondary: '#4b5563',
           tertiary: '#9ca3af'
-        }
+        },
+      },
+      spacing: {
+        '112': '28rem',
+        '128': '32rem',
       }
     },
   },

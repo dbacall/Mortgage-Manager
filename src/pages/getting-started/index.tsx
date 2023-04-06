@@ -4,6 +4,7 @@ import { CompanyCreator, ProfileCreator, SetupLayout } from "../../components";
 import { type ReactElement, useEffect, useState } from "react";
 import type { NextPageWithLayout } from "../_app";
 import { type GetServerSideProps } from "next";
+import type { User } from "src/types/interfaces";
 
 type GettingStartedProps = {
   user: User
@@ -46,17 +47,19 @@ const GettingStarted = ({ user }: GettingStartedProps) => {
               <li key={step.name} className={step.currentOrPast ? "step step-primary" : "step"}>{step.name}</li>
             ))}
           </ul>
-          {(!hasCreatedProfile) && <ProfileCreator setCreatedProfile={setCreatedProfile} />}
+          <div className="bg-white text-center my-16 p-12 w-128 rounded-lg m-auto shadow-md">
+            {(!hasCreatedProfile) && <ProfileCreator setCreatedProfile={setCreatedProfile} />}
 
-          {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} />}
+            {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} />}
 
-          {hasCreatedCompany && (
-            <>
-              <h1 className="mt-16 text-4xl font-medium text-content-secondary">
-                Add Members
-              </h1>
-            </>
-          )}
+            {hasCreatedCompany && (
+              <>
+                <h1 className="text-4xl font-medium text-content-secondary">
+                  Add Members
+                </h1>
+              </>
+            )}
+          </div>
         </div>
       </main>
     </>
@@ -98,33 +101,6 @@ GettingStarted.getLayout = function getLayout(page: ReactElement) {
   return (
     <SetupLayout>{page}</SetupLayout>
   )
-}
-
-
-interface User {
-  id: string;
-  name: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  emailVerified?: any;
-  image: string;
-  companyId: string;
-  companyMembershipId: string;
-  company: Company;
-  companyMembership: CompanyMembership;
-}
-
-interface CompanyMembership {
-  id: string;
-  userId: string;
-  companyId: string;
-  type: string;
-}
-
-interface Company {
-  id: string;
-  name: string;
 }
 
 export default GettingStarted;

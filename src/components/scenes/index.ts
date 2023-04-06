@@ -1,7 +1,3 @@
-import CompanyCreator from "./CompanyCreator";
-import ProfileCreator from "./ProfileCreator";
-
-export {
-  CompanyCreator,
-  ProfileCreator
-}
+export * from "./AddClient";
+export * from "./CompanyCreator";
+export * from "./ProfileCreator";
