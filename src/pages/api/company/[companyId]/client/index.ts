@@ -13,7 +13,7 @@ export interface Request extends NextApiRequest {
   }
 }
 
-export default async function personHandler(
+export default async function clientHandler(
   req: Request,
   res: NextApiResponse
 ) {

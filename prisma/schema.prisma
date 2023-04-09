@@ -15,33 +15,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Client {
-    id        String     @id @default(cuid())
-    firstName String
-    lastName  String
-    email     String?
-    phone     String?
-    companyId String?
-    mortgages Mortgage[]
-
-    @@unique([email, companyId])
-}
-
-model Mortgage {
-    id                    String        @id @default(cuid())
-    interestType          InterestType?
-    purchaseType          PurchaseType?
-    firstLineOfAddress    String?
-    city                  String?
-    postcode              String?
-    purchaseDate          DateTime?
-    renewalDate           DateTime?
-    initialMortgageAmount Int?
-    companyId             String?
-    clientId              String
-    client                Client        @relation(fields: [clientId], references: [id])
-}
-
 model User {
     id                  String             @id @default(cuid())
     name                String?
@@ -79,6 +52,18 @@ model CompanyMembership {
     type      MembershipType
 }
 
+model Client {
+    id        String     @id @default(cuid())
+    firstName String
+    lastName  String
+    email     String?
+    phone     String?
+    companyId String?
+    mortgages Mortgage[]
+
+    @@unique([email, companyId])
+}
+
 enum InterestType {
     FIXED
     VARIABLE
@@ -88,6 +73,21 @@ enum PurchaseType {
     HOMEOWNER
     BUY_TO_LET
     COMMERCIAL
+}
+
+model Mortgage {
+    id                    String        @id @default(cuid())
+    interestType          InterestType?
+    purchaseType          PurchaseType?
+    firstLineOfAddress    String?
+    city                  String?
+    postcode              String?
+    purchaseDate          DateTime?
+    renewalDate           DateTime?
+    initialMortgageAmount Int?
+    companyId             String?
+    clientId              String
+    client                Client        @relation(fields: [clientId], references: [id])
 }
 
 // Necessary for Next auth

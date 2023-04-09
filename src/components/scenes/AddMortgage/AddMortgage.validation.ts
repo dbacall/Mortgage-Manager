@@ -1,8 +1,12 @@
 import * as z from 'zod';
 
 export const mortgageSchema = z.object({
-  firstName: z.string().min(1, { message: 'First name is required' }),
-  lastName: z.string().min(1, { message: 'Last name is required' }),
-  email: z.string().min(1, { message: 'Email is required' }).email(),
-  phone: z.string().min(1, { message: 'Phone number is required' }),
+  firstLineOfAddress: z.string().min(1, { message: 'First line of address is required' }),
+  city: z.string().min(1, { message: 'City is required' }),
+  postcode: z.string().min(1, { message: 'Postcode is required' }),
+  interestType: z.enum(['FIXED', 'VARIABLE']),
+  purchaseType: z.enum(['HOMEOWNER', 'BUY_TO_LET', 'COMMERCIAL']),
+  purchaseDate: z.date(),
+  renewalDate: z.date(),
+  initialMortgageAmount: z.number({ invalid_type_error: 'Initial mortgage amount is required' }).positive('Positive number is required')
 });

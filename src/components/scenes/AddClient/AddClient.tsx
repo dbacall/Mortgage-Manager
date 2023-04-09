@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, type FC } from "react";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { clientSchema } from "./AddClient.validation";
-import { Button, FormContainer, Input } from "src/components/atoms";
+import { Button, FormContainer, TextInput } from "src/components/atoms";
 import type * as z from 'zod';
 import { BiCheckCircle } from "react-icons/bi";
 
@@ -47,12 +47,21 @@ export const AddClient: FC<AddClientProps> = ({ companyId }) => {
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center m-auto w-80"
+          className="flex flex-col items-center m-auto"
         >
-          <Input type="text" placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
-          <Input type="text" placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" />
-          <Input type="text" placeholder="Email" className="mt-6" error={errors.email?.message} name="email" />
-          <Input type="text" placeholder="Phone number" className="mt-6" error={errors.phone?.message} name="phone" />
+          <div className="flex gap-6 mt-14">
+            <TextInput placeholder="First Name" error={errors.firstName?.message} name="firstName" />
+            <TextInput placeholder="Last Name" error={errors.lastName?.message} name="lastName" />
+          </div>
+          {/* <div className="flex gap-6 mt-6">
+            <TextInput placeholder="Email" error={errors.email?.message} name="email" />
+            <TextInput placeholder="Phone number" error={errors.phone?.message} name="phone" />
+          </div>
+          <TextInput placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
+          <TextInput placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" /> */}
+          <TextInput placeholder="Email" className="mt-6" error={errors.email?.message} name="email" />
+          <TextInput placeholder="Phone number" className="mt-6" error={errors.phone?.message} name="phone" />
+
           <Button type="submit" className="mt-6 w-full" isLoading={isLoading}>Create</Button>
         </form>
       </FormProvider>

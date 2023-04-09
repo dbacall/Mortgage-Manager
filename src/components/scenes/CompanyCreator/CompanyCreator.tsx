@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx';
 import camelcase from "camelcase";
 import { companySchema } from "./CompanyCreator.validation";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, FileUpload, Input } from "src/components/atoms";
+import { Button, FileUpload, TextInput } from "src/components/atoms";
 
 interface CompanyCreatorProps {
   setCreatedCompany: (created: boolean) => void
@@ -109,7 +109,7 @@ export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) =
         ) : (
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} >
-              <Input type="text" placeholder="Company Name" className="mt-14" error={errors.name?.message} name="name" />
+              <TextInput placeholder="Company Name" className="mt-14" error={errors.name?.message} name="name" />
               <FileUpload className="mt-6" name="clientsFile" error={errors.clientsFile?.message} />
               <Button type="submit" className="mt-6" isLoading={isLoading}>Submit</Button>
             </form>

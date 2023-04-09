@@ -19,6 +19,7 @@ const config = {
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
+      // 'corporate',
       {
         mytheme: {
           primary: "#0891b2",

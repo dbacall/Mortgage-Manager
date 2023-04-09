@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { type FC } from "react";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema } from "./ProfileCreator.validation";
-import { Button, Input } from "src/components/atoms";
+import { Button, TextInput } from "src/components/atoms";
 import type * as z from 'zod';
 
 interface ProfileCreatorProps {
@@ -43,8 +43,8 @@ export const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) =
       </h1>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
-          <Input type="text" placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
-          <Input type="text" placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" />
+          <TextInput placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
+          <TextInput placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" />
           <Button type="submit" className="mt-6" isLoading={isLoading}>Submit</Button>
         </form>
       </FormProvider>

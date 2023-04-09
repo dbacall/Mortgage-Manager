@@ -7,17 +7,18 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
 }
 
-export const Input: FC<InputProps> = ({ className = "", error, name, ...props }) => {
+export const TextInput: FC<InputProps> = ({ className = "", error, name, ...props }) => {
   const methods = useFormContext()
 
   return (
-    <>
+    <div className="flex flex-col w-full">
       <input
-        className={`w-full max-w-xs input input-bordered border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+        className={`input input-bordered border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+        type="text"
         {...props}
         {...methods.register(name)}
       />
       {error && <p className="text-red-500">{error}</p>}
-    </>
+    </div>
   );
 }
