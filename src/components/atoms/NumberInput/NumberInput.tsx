@@ -8,9 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const NumberInput: FC<InputProps> = ({ className = "", error, name, ...props }) => {
-  const { control, register } = useFormContext();
-
-  console.log(control);
+  const { control } = useFormContext();
 
   return (
     <div className="flex flex-col w-full">
@@ -20,7 +18,7 @@ export const NumberInput: FC<InputProps> = ({ className = "", error, name, ...pr
         rules={{ required: true }}
         render={({ field }) => (
           <input
-            className={`input input-bordered border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+            className={`input input-bordered text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
             type="number"
             {...props}
             {...field}

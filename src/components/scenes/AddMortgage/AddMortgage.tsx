@@ -31,7 +31,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
 
   const onSubmit: SubmitHandler<ProfileData> = (data: ProfileData) => {
     console.log(data);
-    addMortgage(data)
+    // addMortgage(data)
   };
 
   const { mutate: addMortgage, isLoading } = useMutation((data: ProfileData): any => {
@@ -60,7 +60,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
             <FormProvider {...methods}>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className=""
+                className="w-full"
               >
                 <TextInput placeholder="First line of address" className="mt-6" error={errors.firstLineOfAddress?.message} name="firstLineOfAddress" />
                 <div className="flex gap-2 mt-6">
@@ -71,7 +71,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
                   <Select options={interestTypeOptions} name="interestType" placeholder="Interest type" className="flex-1" />
                   <Select options={purchseTypeOptions} name="purchaseType" placeholder="Purchase type" className="flex-1" />
                 </div>
-                <div className="flex gap-2 mt-6">
+                <div className="flex w-full gap-2 mt-6">
                   <DatePicker placeholder="Purchase Date" name="purchaseDate" />
                   <DatePicker placeholder="Renewal Date" name="renewalDate" />
                 </div>

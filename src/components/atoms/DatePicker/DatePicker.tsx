@@ -15,7 +15,7 @@ export const DatePicker: FC<DatePickerProps> = ({
   const { control } = useFormContext();
 
   return (
-    <div className="relative">
+    <div className="relative w-full flex-1">
       <Controller
         name={name}
         control={control}
@@ -26,7 +26,7 @@ export const DatePicker: FC<DatePickerProps> = ({
             showYearDropdown
             scrollableYearDropdown
             dropdownMode="select"
-            className={`input input-bordered border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+            className={`input input-bordered w-full text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
             placeholderText={placeholder}
             dateFormat="dd/MM/yyyy"
             {...field}
@@ -38,7 +38,7 @@ export const DatePicker: FC<DatePickerProps> = ({
         )
         }
       />
-      <BiCalendarAlt size={20} className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+      <BiCalendarAlt size={20} className="absolute text-content-tertiary right-3 top-1/2 transform -translate-y-1/2" />
     </div>
 
   );
