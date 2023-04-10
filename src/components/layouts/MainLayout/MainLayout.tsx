@@ -1,14 +1,23 @@
 import { type FC, type PropsWithChildren, useState, useEffect, type ReactElement } from "react";
 import { Header } from "src/components";
-import { BiRefresh, BiCalculator } from 'react-icons/bi';
-import { IoHelpSharp } from 'react-icons/io5';
-import { BsPersonAdd, BsHouseAdd } from 'react-icons/bs';
+import {
+  BsPersonAdd,
+  BsPersonFillAdd,
+  BsHouseAdd,
+  BsHouseAddFill,
+  BsCalculator,
+  BsCalculatorFill,
+  BsQuestionCircle,
+  BsQuestionCircleFill,
+  BsFileEarmarkText,
+  BsFileEarmarkTextFill
+} from 'react-icons/bs';
 import { useRouter } from "next/router";
 
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
-  const router = useRouter()
-  console.log(router);
-  const [audio, setAudio] = useState(null)
+  const router = useRouter();
+
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setAudio(new Audio('/help.mp3'))
@@ -17,30 +26,30 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   const options = [
     {
       name: 'Client Renewals',
-      icon: <BiRefresh size={20} />,
+      icon: router.pathname === '/' ? <BsFileEarmarkTextFill size={20} /> : <BsFileEarmarkText size={20} />,
       href: '/',
       isSelected: router.pathname === '/'
     },
     {
       name: 'Mortgage Calculator',
-      icon: <BiCalculator size={20} />,
+      icon: <BsCalculator size={20} />,
       isSelected: router.pathname === '/afafsdd'
     },
     {
       name: 'Add Client',
-      icon: <BsPersonAdd size={20} />,
+      icon: router.pathname === '/client/add' ? <BsPersonFillAdd size={20} /> : <BsPersonAdd size={20} />,
       href: '/client/add',
       isSelected: router.pathname === '/client/add'
     },
     {
       name: 'Add Mortgage',
-      icon: <BsHouseAdd size={20} />,
+      icon: router.pathname === '/mortgage/add' ? <BsHouseAddFill size={20} /> : <BsHouseAdd size={20} />,
       href: '/mortgage/add',
       isSelected: router.pathname === '/mortgage/add'
     },
     {
       name: 'Help',
-      icon: <IoHelpSharp size={20} />,
+      icon: <BsQuestionCircle size={20} />,
       isSelected: router.pathname === '/afddafs'
     },
   ]

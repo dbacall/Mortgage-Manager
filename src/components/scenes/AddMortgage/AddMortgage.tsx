@@ -30,8 +30,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
   const { handleSubmit, formState: { errors } } = methods
 
   const onSubmit: SubmitHandler<ProfileData> = (data: ProfileData) => {
-    console.log(data);
-    // addMortgage(data)
+    addMortgage(data)
   };
 
   const { mutate: addMortgage, isLoading } = useMutation((data: ProfileData): any => {
