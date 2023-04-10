@@ -18,7 +18,7 @@ export const NumberInput: FC<InputProps> = ({ className = "", error, name, ...pr
         rules={{ required: true }}
         render={({ field }) => (
           <input
-            className={`input input-bordered text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+            className={`input input-bordered text-base border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
             type="number"
             {...props}
             {...field}
