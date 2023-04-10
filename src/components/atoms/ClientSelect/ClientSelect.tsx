@@ -44,7 +44,7 @@ export const ClientSelect: FC<ClientSelectProps> = ({ companyId, setSelectedClie
         }
       }}
       classNames={{
-        control: () => "select select-bordered border-slate-200 font-medium text-md rounded-lg pr-1 bg-none",
+        control: () => "select select-bordered border-slate-200 font-medium text-md rounded-lg pr-1 bg-none cursor-text",
         valueContainer: () => "p-0",
         input: () => "m-0",
         singleValue: () => "m-0 text-md text-content-primary",

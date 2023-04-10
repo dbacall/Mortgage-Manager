@@ -26,9 +26,12 @@ export const DatePicker: FC<DatePickerProps> = ({
             selected={startDate}
             showYearDropdown
             showMonthDropdown
+            onKeyDown={(e) => {
+              e.preventDefault();
+            }}
             scrollableYearDropdown
             dropdownMode="select"
-            className={`input input-bordered w-full text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+            className={`input input-bordered caret-transparent w-full text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
             placeholderText={placeholder}
             dateFormat="dd/MM/yyyy"
             minDate={minDate}
