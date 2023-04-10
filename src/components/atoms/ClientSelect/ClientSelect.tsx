@@ -34,7 +34,7 @@ export const ClientSelect: FC<ClientSelectProps> = ({ companyId, setSelectedClie
       defaultValue={[]}
       isClearable
       defaultOptions={[]}
-      placeholder="Search by email..."
+      placeholder="Search by name or email..."
       className="mt-14 text-left w-full"
       onChange={(selected) => {
         if (selected) {

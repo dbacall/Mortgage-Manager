@@ -21,11 +21,13 @@ export default async function clientHandler(
   const { companyId } = query
 
   if (req.method === 'POST') {
+    const { firstName, lastName } = body;
 
     await prisma.client.create({
       data: {
         ...body,
-        companyId
+        companyId,
+        fullName: `${firstName} ${lastName}`
       },
     })
 

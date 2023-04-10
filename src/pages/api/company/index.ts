@@ -3,13 +3,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth/next';
 import { prisma } from '../../../server/db'
-import { MembershipType } from '@prisma/client';
+import { type Client, MembershipType, type Mortgage } from '@prisma/client';
 import { authOptions } from 'src/server/auth';
+
+interface ReqMortgage extends Mortgage {
+  email: string;
+}
 
 export interface Request extends NextApiRequest {
   body: {
     name: string;
-    clients: Record<string, any>[]
+    clients: Client[];
+    mortgages: ReqMortgage[]
   };
 }
 
@@ -19,13 +24,14 @@ export default async function companyHandler(
   res: NextApiResponse
 ) {
 
+  const session = await getServerSession(req, res, authOptions)
+
+  if (!session) return res.status(401).end()
 
   const { body } = req
 
   if (req.method === 'POST') {
     const { name, clients, mortgages } = body;
-
-    const session = await getServerSession(req, res, authOptions)
 
     const { id: userId } = session.user
 
@@ -57,14 +63,15 @@ export default async function companyHandler(
       const clientsWithCompanyId = clients.map((client) => {
         return {
           ...client,
-          companyId: company.id
+          companyId: company.id,
+          fullName: `${client.firstName} ${client.lastName}`
         }
       })
 
       const mortgagesWithCompanyId = mortgages.map((mortgage) => {
         return {
           ...mortgage,
-          companyId: company.id
+          companyId: company.id,
         }
       })
 
@@ -79,6 +86,7 @@ export default async function companyHandler(
           ...mortgage,
           email: undefined
         }
+
         await prisma.mortgage.create({
           data: {
             ...mortgageToAdd,

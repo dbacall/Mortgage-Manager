@@ -13,7 +13,7 @@ export const TextInput: FC<InputProps> = ({ className = "", error, name, ...prop
   return (
     <div className="flex flex-col w-full">
       <input
-        className={`input input-bordered text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
+        className={`input input-bordered w-full text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
         type="text"
         {...props}
         {...methods.register(name)}

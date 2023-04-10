@@ -49,16 +49,10 @@ export const AddClient: FC<AddClientProps> = ({ companyId }) => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center m-auto"
         >
-          <div className="flex gap-6 mt-14">
+          <div className="flex gap-2 mt-14 w-full">
             <TextInput placeholder="First Name" error={errors.firstName?.message} name="firstName" />
             <TextInput placeholder="Last Name" error={errors.lastName?.message} name="lastName" />
           </div>
-          {/* <div className="flex gap-6 mt-6">
-            <TextInput placeholder="Email" error={errors.email?.message} name="email" />
-            <TextInput placeholder="Phone number" error={errors.phone?.message} name="phone" />
-          </div>
-          <TextInput placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
-          <TextInput placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" /> */}
           <TextInput placeholder="Email" className="mt-6" error={errors.email?.message} name="email" />
           <TextInput placeholder="Phone number" className="mt-6" error={errors.phone?.message} name="phone" />
 
