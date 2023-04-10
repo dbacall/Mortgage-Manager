@@ -39,8 +39,6 @@ export default async function personHandler(
       },
     })
 
-    console.log('clients', clients);
-
     const firstFiveClients = clients.slice(0, 5)
 
     return res.status(200).send(firstFiveClients)

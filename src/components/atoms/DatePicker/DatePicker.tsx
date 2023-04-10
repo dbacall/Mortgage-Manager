@@ -8,7 +8,8 @@ import { BiCalendarAlt } from 'react-icons/bi';
 export const DatePicker: FC<DatePickerProps> = ({
   className = "",
   placeholder,
-  name
+  name,
+  minDate
 }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
 
@@ -24,11 +25,13 @@ export const DatePicker: FC<DatePickerProps> = ({
           <ReactDatePicker
             selected={startDate}
             showYearDropdown
+            showMonthDropdown
             scrollableYearDropdown
             dropdownMode="select"
             className={`input input-bordered w-full text-sm border-slate-200 text-content-primary placeholder-content-tertiary ${className}`}
             placeholderText={placeholder}
             dateFormat="dd/MM/yyyy"
+            minDate={minDate}
             {...field}
             onChange={(date: Date) => {
               setStartDate(date)

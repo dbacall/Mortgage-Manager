@@ -63,18 +63,22 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
                 className="w-full"
               >
                 <TextInput placeholder="First line of address" className="mt-6" error={errors.firstLineOfAddress?.message} name="firstLineOfAddress" />
+
                 <div className="flex gap-2 mt-6">
                   <TextInput placeholder="City" error={errors.city?.message} name="city" />
                   <TextInput placeholder="Postcode" error={errors.postcode?.message} name="postcode" />
                 </div>
+
                 <div className="flex gap-2 mt-6">
                   <Select options={interestTypeOptions} name="interestType" placeholder="Interest type" className="flex-1" />
                   <Select options={purchseTypeOptions} name="purchaseType" placeholder="Purchase type" className="flex-1" />
                 </div>
+
                 <div className="flex w-full gap-2 mt-6">
                   <DatePicker placeholder="Purchase Date" name="purchaseDate" />
-                  <DatePicker placeholder="Renewal Date" name="renewalDate" />
+                  <DatePicker placeholder="Renewal Date" name="renewalDate" minDate={new Date()} />
                 </div>
+
                 <NumberInput placeholder="Initial mortgage amount (£)" className="mt-6" error={errors.initialMortgageAmount?.message} name="initialMortgageAmount" />
 
                 <Button type="submit" className="mt-6 w-full" isLoading={isLoading}>Create</Button>
