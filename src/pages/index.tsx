@@ -29,7 +29,7 @@ const Home: NextPageWithLayout = ({ user, mortgages }) => {
         <h1 className="text-4xl text-content-tertiary">
           {company.name}
         </h1>
-        <div className="mt-6 flex justify-between items-center w-full overflow-none text-content-primary">
+        <div className="flex items-center justify-between w-full mt-6 overflow-none text-content-primary">
           <h2 className="text-2xl">
             Client Renewals
           </h2>
@@ -44,7 +44,7 @@ const Home: NextPageWithLayout = ({ user, mortgages }) => {
             />
           </div>
         </div>
-        <table className="table w-full mt-5 shadow-xl rounded-lg">
+        <table className="table w-full mt-5 rounded-lg shadow-xl">
           <thead >
             <tr>
               <th className="bg-slate-100 text-content-secondary">Name</th>

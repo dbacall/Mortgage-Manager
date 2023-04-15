@@ -48,7 +48,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
 
   return (
     <FormContainer>
-      <h1 className="text-4xl text-content-primary font-medium">
+      <h1 className="text-4xl font-medium text-content-primary">
         Add Mortgage
       </h1>
       <div className="flex flex-col items-center m-auto">
@@ -80,7 +80,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
 
                 <NumberInput placeholder="Initial mortgage amount (£)" className="mt-6" error={errors.initialMortgageAmount?.message} name="initialMortgageAmount" />
 
-                <Button type="submit" className="mt-6 w-full" isLoading={isLoading}>Create</Button>
+                <Button type="submit" className="w-full mt-6" isLoading={isLoading}>Create</Button>
               </form>
             </FormProvider>
           </>

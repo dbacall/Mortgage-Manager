@@ -59,14 +59,13 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
       <Header />
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col pt-16">
+        <div className="flex flex-col pt-16 drawer-content">
           {children}
           <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-
         </div>
-        <div className="drawer-side pt-16 shadow-lg">
+        <div className="pt-16 shadow-lg drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 bg-slate-100 text-base-content w-64">
+          <ul className="w-64 p-4 menu bg-slate-100 text-base-content">
             {options.map((option, id) => (
               <li
                 key={id}
@@ -74,8 +73,8 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
               >
                 <a
                   onClick={() => {
-                    if (option.name === 'Help') {
-                      audio.play().catch(() => { })
+                    if (option.name === 'Help' && audio) {
+                      audio.play().catch((err) => console.error(err))
                     } else {
                       router.push(option.href)
                     }
