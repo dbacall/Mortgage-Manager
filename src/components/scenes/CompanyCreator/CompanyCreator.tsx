@@ -9,12 +9,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, FileUpload, TextInput } from "src/components/atoms";
 
 interface CompanyCreatorProps {
-  setCreatedCompany: (created: boolean) => void
+  setCreatedCompany: (created: boolean) => void;
+  setCompanyId: (id: string) => void;
 }
 
 type CompanyData = z.infer<typeof companySchema>
 
-export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) => {
+export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany, setCompanyId }) => {
   const [downloadedFile, setDownloadedFile] = useState(false)
 
   const methods = useForm<CompanyData>(
@@ -92,7 +93,11 @@ export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) =
   const { mutate: createCompany, isLoading } = useMutation((data: CompanyData) => {
     return axios.post(`http://localhost:3000/api/company`, data)
   }, {
-    onSuccess: () => setCreatedCompany(true)
+    onSuccess: (data) => {
+      setCreatedCompany(true)
+      console.log('company creator success', data);
+      setCompanyId(data.data.company.id)
+    }
   })
 
   return (
@@ -100,7 +105,7 @@ export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) =
       <h1 className="text-4xl font-medium text-content-primary">
         Company Creation
       </h1>
-      <div className="flex flex-col items-center w-full m-auto">
+      <div className="w-full m-auto">
         {!downloadedFile ? (
           <>
             <p className="mt-14 text-content-primary">Click <a className="px-0 btn btn-link" href="/feemo-clients-template.xlsx" download>here</a> to download excel template.</p>

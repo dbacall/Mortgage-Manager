@@ -16,6 +16,10 @@ body {
   margin: 0;
 }
 
+#__next>div {
+  height: 100%;
+}
+
 #__next {
   @apply bg-slate-50 text-slate-900;
   position: absolute;

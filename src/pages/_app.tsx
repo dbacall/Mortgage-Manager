@@ -23,7 +23,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>
         {routeLoading ? (
-          <div className="h-full flex justify-center items-center">
+          <div className="flex items-center justify-center h-full">
             <PropagateLoader
               color="#0891b2"
             />

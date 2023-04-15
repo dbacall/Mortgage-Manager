@@ -8,14 +8,19 @@ import { memberSchema } from "./AddMembers.validation";
 import { Button, TextInput } from "src/components/atoms";
 import type * as z from 'zod';
 import { BiCheckCircle } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 interface AddMembersProps {
+  companyId: string;
 }
 
 type ProfileData = z.infer<typeof memberSchema>
 
-export const AddMembers: FC<AddMembersProps> = () => {
-  const [showAlert, setShowAlert] = useState(false)
+export const AddMembers: FC<AddMembersProps> = ({ companyId }) => {
+  const [showAlert, setShowAlert] = useState(false);
+  console.log('companyId', companyId);
+  const router = useRouter();
+
   const { data: session } = useSession()
 
   useEffect(() => {
@@ -31,19 +36,19 @@ export const AddMembers: FC<AddMembersProps> = () => {
   const { handleSubmit, formState: { errors } } = methods
 
   const onSubmit: SubmitHandler<ProfileData> = (data: ProfileData) => {
-    console.log('data', data);
-    setShowAlert(true)
-    methods.reset()
-    // addMember(data)
+    addMember(data)
   };
 
   const { mutate: addMember, isLoading } = useMutation((data: ProfileData): any => {
     if (session) {
-      return axios.post(`http://localhost:3000/api/user/${session.user.id}`, data)
+      return axios.post(`http://localhost:3000/api/company/${companyId}/member`, data)
     }
   },
     {
-      onSuccess: () => { }
+      onSuccess: () => {
+        setShowAlert(true)
+        methods.reset()
+      }
     })
 
   return (
@@ -56,7 +61,7 @@ export const AddMembers: FC<AddMembersProps> = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center w-full m-auto">
           <TextInput placeholder="Member email" className="mt-14" error={errors.email?.message} name="email" />
           <div className="flex justify-between w-full gap-2 mt-6">
-            <Button className="flex-1 btn-accent" disabled={isLoading}>Continue</Button>
+            <Button className="flex-1 btn-accent" disabled={isLoading} onClick={() => router.push('/')}>Continue</Button>
             <Button type="submit" className="flex-1" isLoading={isLoading}>Add</Button>
           </div>
         </form>

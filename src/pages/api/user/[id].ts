@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../server/db'
+import { MembershipType } from '@prisma/client';
 
 export interface Request extends NextApiRequest {
   body: {
@@ -37,7 +38,7 @@ export default async function personHandler(
   if (req.method === 'PUT') {
     const { firstName, lastName } = body;
 
-    const user = await prisma.user.update({
+    let user = await prisma.user.update({
       where: {
         id,
       },
@@ -49,6 +50,38 @@ export default async function personHandler(
 
     if (!user) return res.status(404).end()
 
-    return res.status(200).end()
+    const company = await prisma.company.findMany({
+      where: {
+        memberEmails: {
+          has: user.email
+        }
+      }
+    })
+
+    if (company[0]) {
+      const companyMembership = await prisma.companyMembership.create({
+        data: {
+          userId: user.id,
+          companyId: company[0].id,
+          type: MembershipType.USER,
+        }
+      })
+
+      user = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          companyMembershipId: companyMembership.id,
+          company: {
+            connect: {
+              id: company[0].id
+            }
+          }
+        },
+      })
+    }
+
+    return res.status(200).json({ user })
   }
 }

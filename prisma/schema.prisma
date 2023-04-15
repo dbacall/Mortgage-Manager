@@ -35,7 +35,8 @@ model Company {
     id                String              @id @default(cuid())
     name              String
     members           User[]
-    CompanyMembership CompanyMembership[]
+    companyMembership CompanyMembership[]
+    memberEmails      String[]            @unique
 }
 
 enum MembershipType {

@@ -7,14 +7,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema } from "./ProfileCreator.validation";
 import { Button, TextInput } from "src/components/atoms";
 import type * as z from 'zod';
+import { useRouter } from "next/router";
 
 interface ProfileCreatorProps {
-  setCreatedProfile: (created: boolean) => void
+  setCreatedProfile: (created: boolean) => void;
 }
 
 type ProfileData = z.infer<typeof profileSchema>
 
 export const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) => {
+  const router = useRouter();
+
   const { data: session } = useSession()
 
   const methods = useForm<ProfileData>({
@@ -33,7 +36,11 @@ export const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) =
     }
   },
     {
-      onSuccess: () => setCreatedProfile(true)
+      onSuccess: (data) => {
+        console.log('profile creator success', data);
+        if (data.data.user.companyId) router.push('/').catch((err) => console.error(err))
+        setCreatedProfile(true)
+      }
     })
 
   return (

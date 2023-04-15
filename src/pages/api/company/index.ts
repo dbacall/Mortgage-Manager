@@ -33,7 +33,7 @@ export default async function companyHandler(
   if (req.method === 'POST') {
     const { name, clients, mortgages } = body;
 
-    const { id: userId } = session.user
+    const { id: userId, email } = session.user
 
     if (typeof name === 'string') {
       const company = await prisma.company.create({
@@ -56,7 +56,11 @@ export default async function companyHandler(
         },
         data: {
           companyMembershipId: companyMembership.id,
-          companyId: company.id
+          company: {
+            connect: {
+              id: company.id
+            }
+          }
         },
       })
 
@@ -102,10 +106,7 @@ export default async function companyHandler(
         })
       }
 
-
+      return res.status(200).json({ company })
     }
-
-
-    return res.status(200).end()
   }
 }

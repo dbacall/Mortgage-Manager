@@ -14,7 +14,7 @@ export const FileUpload: FC<FileUploadProps> = ({ className = "", error, name, .
     <>
       <input
         type="file"
-        className={`file-input file-input-primary w-full max-w-xs  ${className}`}
+        className={`file-input file-input-primary w-full  ${className}`}
         {...props}
         {...methods.register(name)}
       />

@@ -13,7 +13,8 @@ type GettingStartedProps = {
 
 const GettingStarted = ({ user }: GettingStartedProps) => {
   const [hasCreatedProfile, setCreatedProfile] = useState(!!user.firstName)
-  const [hasCreatedCompany, setCreatedCompany] = useState(false)
+  const [hasCreatedCompany, setCreatedCompany] = useState(false);
+  const [companyId, setCompanyId] = useState('');
 
   useEffect(() => {
     if (!!user.firstName) setCreatedProfile(true)
@@ -41,7 +42,7 @@ const GettingStarted = ({ user }: GettingStartedProps) => {
       </Head>
 
 
-      <main className="">
+      <main className="pt-20">
         <div className="text-center">
           <ul className="mt-16 steps steps-horizontal w-96">
             {steps.map((step) => (
@@ -51,13 +52,9 @@ const GettingStarted = ({ user }: GettingStartedProps) => {
           <div className="p-12 m-auto my-16 text-center bg-white rounded-lg shadow-md w-128">
             {(!hasCreatedProfile) && <ProfileCreator setCreatedProfile={setCreatedProfile} />}
 
-            {/* {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} />} */}
+            {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} setCompanyId={setCompanyId} />}
 
-            {/* {hasCreatedCompany && ( */}
-            <>
-              <AddMembers />
-            </>
-            {/* )} */}
+            {hasCreatedCompany && <AddMembers companyId={companyId} />}
           </div>
         </div>
       </main>
@@ -82,14 +79,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const user = await response.json() as User
 
-  // if (user.companyMembershipId) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  if (user.companyMembershipId) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: { user } as { user: User },
