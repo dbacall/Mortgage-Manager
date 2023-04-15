@@ -38,11 +38,11 @@ export const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) =
 
   return (
     <>
-      <h1 className="text-4xl text-content-secondary font-medium">
+      <h1 className="text-4xl font-medium text-content-primary">
         Profile Creation
       </h1>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center m-auto w-80">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center w-full m-auto">
           <TextInput placeholder="First Name" className="mt-14" error={errors.firstName?.message} name="firstName" />
           <TextInput placeholder="Last Name" className="mt-6" error={errors.lastName?.message} name="lastName" />
           <Button type="submit" className="mt-6" isLoading={isLoading}>Submit</Button>

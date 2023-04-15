@@ -5,6 +5,7 @@ import { type ReactElement, useEffect, useState } from "react";
 import type { NextPageWithLayout } from "../_app";
 import { type GetServerSideProps } from "next";
 import type { User } from "src/types/interfaces";
+import { AddMembers } from "src/components/scenes/AddMembers";
 
 type GettingStartedProps = {
   user: User
@@ -47,18 +48,16 @@ const GettingStarted = ({ user }: GettingStartedProps) => {
               <li key={step.name} className={step.currentOrPast ? "step step-primary" : "step"}>{step.name}</li>
             ))}
           </ul>
-          <div className="bg-white text-center my-16 p-12 w-128 rounded-lg m-auto shadow-md">
+          <div className="p-12 m-auto my-16 text-center bg-white rounded-lg shadow-md w-128">
             {(!hasCreatedProfile) && <ProfileCreator setCreatedProfile={setCreatedProfile} />}
 
-            {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} />}
+            {/* {(hasCreatedProfile && !hasCreatedCompany) && <CompanyCreator setCreatedCompany={setCreatedCompany} />} */}
 
-            {hasCreatedCompany && (
-              <>
-                <h1 className="text-4xl font-medium text-content-secondary">
-                  Add Members
-                </h1>
-              </>
-            )}
+            {/* {hasCreatedCompany && ( */}
+            <>
+              <AddMembers />
+            </>
+            {/* )} */}
           </div>
         </div>
       </main>
@@ -83,14 +82,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const user = await response.json() as User
 
-  if (user.companyMembershipId) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
+  // if (user.companyMembershipId) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
 
   return {
     props: { user } as { user: User },

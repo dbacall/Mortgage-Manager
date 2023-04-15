@@ -97,13 +97,13 @@ export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany }) =
 
   return (
     <>
-      <h1 className="text-4xl font-medium text-content-secondary">
+      <h1 className="text-4xl font-medium text-content-primary">
         Company Creation
       </h1>
-      <div className="flex flex-col items-center m-auto w-80">
+      <div className="flex flex-col items-center w-full m-auto">
         {!downloadedFile ? (
           <>
-            <p className="mt-14 text-content-primary">Click <a className="btn btn-link px-0" href="/feemo-clients-template.xlsx" download>here</a> to download excel template.</p>
+            <p className="mt-14 text-content-primary">Click <a className="px-0 btn btn-link" href="/feemo-clients-template.xlsx" download>here</a> to download excel template.</p>
             <button onClick={() => setDownloadedFile(true)} className="w-full mt-14 btn btn-primary">Continue</button>
           </>
         ) : (
