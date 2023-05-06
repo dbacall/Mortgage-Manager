@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const response = await fetch(`http://localhost:3000/api/user/${session.user.id}`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${session.user.id}`)
 
   const user = await response.json()
 
@@ -97,7 +97,7 @@ export async function getServerSideProps(context) {
   }
 
 
-  const mortgagesRes = await fetch(`http://localhost:3000/api/mortgages/${user.companyId}`)
+  const mortgagesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mortgages/${user.companyId}`)
 
   const mortgages = await mortgagesRes.json()
 

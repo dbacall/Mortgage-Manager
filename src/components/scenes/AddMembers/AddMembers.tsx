@@ -41,7 +41,7 @@ export const AddMembers: FC<AddMembersProps> = ({ companyId }) => {
 
   const { mutate: addMember, isLoading } = useMutation((data: ProfileData): any => {
     if (session) {
-      return axios.post(`http://localhost:3000/api/company/${companyId}/member`, data)
+      return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/company/${companyId}/member`, data)
     }
   },
     {

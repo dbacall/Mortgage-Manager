@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const response = await fetch(`http://localhost:3000/api/user/${session.user.id}`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${session.user.id}`)
 
   const user = await response.json() as User
 

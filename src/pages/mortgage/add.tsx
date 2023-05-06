@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const { data: user }: { data: User } = await axios.get(`http://localhost:3000/api/user/${session.user.id}`)
+  const { data: user }: { data: User } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${session.user.id}`)
 
   return {
     props: { user } as { user: User },

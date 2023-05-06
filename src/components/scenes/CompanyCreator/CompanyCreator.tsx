@@ -91,7 +91,7 @@ export const CompanyCreator: FC<CompanyCreatorProps> = ({ setCreatedCompany, set
   };
 
   const { mutate: createCompany, isLoading } = useMutation((data: CompanyData) => {
-    return axios.post(`http://localhost:3000/api/company`, data)
+    return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/company`, data)
   }, {
     onSuccess: (data) => {
       setCreatedCompany(true)

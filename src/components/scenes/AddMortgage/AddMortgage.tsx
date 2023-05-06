@@ -35,7 +35,7 @@ export const AddMortgage: FC<AddMortgageProps> = ({ companyId }) => {
 
   const { mutate: addMortgage, isLoading } = useMutation((data: ProfileData): any => {
     if (companyId && selectedClient) {
-      return axios.post(`http://localhost:3000/api/company/${companyId}/client/${selectedClient?.id}/mortgage`, data)
+      return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/company/${companyId}/client/${selectedClient?.id}/mortgage`, data)
     }
   },
     {

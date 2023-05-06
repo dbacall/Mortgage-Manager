@@ -9,7 +9,7 @@ export const ClientSelect: FC<ClientSelectProps> = ({ companyId, setSelectedClie
 
   const getClientOptions = async (inputText: string): Promise<ClientOption[]> => {
     const response: AxiosResponse<Client[]> = await axios.get(
-      `http://localhost:3000/api/company/${companyId}/client/search?search=${inputText.toLowerCase()}`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/company/${companyId}/client/search?search=${inputText.toLowerCase()}`
     )
 
     const clients = response.data;
@@ -35,7 +35,7 @@ export const ClientSelect: FC<ClientSelectProps> = ({ companyId, setSelectedClie
       isClearable
       defaultOptions={[]}
       placeholder="Search by name or email..."
-      className="mt-14 text-left w-full"
+      className="w-full text-left mt-14"
       onChange={(selected) => {
         if (selected) {
           setSelectedClient(selected.value)

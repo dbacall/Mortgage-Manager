@@ -29,7 +29,7 @@ export const AddClient: FC<AddClientProps> = ({ companyId }) => {
 
   const { mutate: addClient, isLoading } = useMutation((data: ProfileData): any => {
     if (companyId) {
-      return axios.post(`http://localhost:3000/api/company/${companyId}/client`, data)
+      return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/company/${companyId}/client`, data)
     }
   },
     {

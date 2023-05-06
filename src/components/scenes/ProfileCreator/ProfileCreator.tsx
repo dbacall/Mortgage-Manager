@@ -32,7 +32,7 @@ export const ProfileCreator: FC<ProfileCreatorProps> = ({ setCreatedProfile }) =
 
   const { mutate: createProfile, isLoading } = useMutation((data: ProfileData): any => {
     if (session) {
-      return axios.put(`http://localhost:3000/api/user/${session.user.id}`, data)
+      return axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${session.user.id}`, data)
     }
   },
     {
