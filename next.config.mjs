@@ -19,6 +19,10 @@ const config = {
     defaultLocale: "en",
   },
 
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   images: {
     remotePatterns: [
       {
